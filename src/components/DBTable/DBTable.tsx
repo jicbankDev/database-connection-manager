@@ -1,19 +1,19 @@
-import { Table, TableHead, TableRow, TableCell, TableBody, Typography} from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { IDatabase } from '../../types/Database.type';
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import "./DBTable.style.css"
-
-
+import "./DBTable.style.css"; 
 type Props = {
-  databases: IDatabase[]
+  databases: IDatabase[]; 
 };
 
 const DBTable = (props: Props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
-    const { databases } = props;
-    return <>
+  const { databases } = props; 
+
+  return (
+    <>
       <Table className="table-custom">
         <TableHead className="table-header">
           <TableRow>
@@ -37,7 +37,7 @@ const DBTable = (props: Props) => {
         </TableBody>
       </Table>
     </>
-}
-export default DBTable
+  );
+};
 
-
+export default DBTable;

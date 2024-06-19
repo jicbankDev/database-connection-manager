@@ -4,7 +4,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IDatabase } from '../../types/Database.type';
 import { useEffect, useState } from 'react';
 
-
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -12,12 +11,12 @@ type Props = {
   onEdit?: (database: IDatabase) => void;
   existingDatabase?: IDatabase;
 }
-const DBDialog = (props: Props) => {
 
+const DBDialog = (props: Props) => {
   let { open, onClose, onAdd, onEdit, existingDatabase } = props;
   
-  const [showPassword, setShowPassword] = useState(false);
-  const [database, setDatabase] = useState({
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [database, setDatabase] = useState({ // Initial state for database form fields
     id: '',
     name: '',
     url: '',
@@ -26,12 +25,14 @@ const DBDialog = (props: Props) => {
     type: ''
   });
 
+  // Update state if existingDatabase is provided
   useEffect(() => {
     if (existingDatabase) {
       setDatabase(existingDatabase);
     }
   }, [existingDatabase]);
 
+  // Handle save action for adding or editing a database
   const handleSaveDatabase = () => {
     if (existingDatabase && onEdit) {
       onEdit(database);
@@ -39,10 +40,10 @@ const DBDialog = (props: Props) => {
     } else if (onAdd) {
       const newDatabase = {
         ...database,
-        id: generateId()
+        id: generateId() // Generate a unique ID for the new database
       };
       onAdd(newDatabase);
-      setDatabase({
+      setDatabase({ // Reset the form after adding
         id: '',
         name: '',
         url: '',
@@ -54,6 +55,7 @@ const DBDialog = (props: Props) => {
     onClose();
   };
 
+  // Handle input changes for the form fields
   const handleChange = (e: any) => {
     setDatabase({
       ...database,
@@ -61,17 +63,19 @@ const DBDialog = (props: Props) => {
     });
   };
 
+  // Toggle password visibility
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
+  // Generate a unique ID for a new database
   const generateId = () => {
     return '_' + Math.random().toString(36).substr(2, 9);
   };
 
-  return <>
-    <Dialog open={open} >
-      <DialogTitle>{existingDatabase ? 'Edit' : 'Add New' } Database</DialogTitle>
+  return (
+    <Dialog open={open}>
+      <DialogTitle>{existingDatabase ? 'Edit' : 'Add New'} Database</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -145,6 +149,7 @@ const DBDialog = (props: Props) => {
         </Button>
       </DialogActions>
     </Dialog>
-  </>
+  );
 }
-export default DBDialog
+
+export default DBDialog;

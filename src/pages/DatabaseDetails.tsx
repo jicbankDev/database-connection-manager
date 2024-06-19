@@ -9,17 +9,17 @@ import { useDialog } from '../contexts/DialogContext';
 import HomeIcon from '@mui/icons-material/Home';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 const DatabaseDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [database, setDatabase] = useState<IDatabase | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { id } = useParams<{ id: string }>(); // Get database ID from URL parameters
+  const [database, setDatabase] = useState<IDatabase | null>(null); // State to store database details
+  const [loading, setLoading] = useState<boolean>(true); // State to manage loading status
+  const [error, setError] = useState<string | null>(null); // State to manage error messages
 
-  const { open, openDialog, closeDialog } = useDialog();
+  const { open, openDialog, closeDialog } = useDialog(); // Use custom dialog hook
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
+  // Fetch database details when the component mounts or when the ID changes
   useEffect(() => {
     if (id) {
       fetchDatabase(id);
@@ -29,6 +29,7 @@ const DatabaseDetails: React.FC = () => {
     }
   }, [id]);
 
+  // Function to fetch database details from the service
   const fetchDatabase = async (id: string) => {
     try {
       const data = await getDatabase(id);
@@ -39,18 +40,24 @@ const DatabaseDetails: React.FC = () => {
       setLoading(false);
     }
   };
-  const handleClickHome = () => {
-    navigate('/')
-  };
-  const handleClickOpenDialog = () => {
 
-    openDialog(database)
-  }
+  // Navigate to home page
+  const handleClickHome = () => {
+    navigate('/');
+  };
+
+  // Open the dialog with the current database details
+  const handleClickOpenDialog = () => {
+    openDialog(database);
+  };
+
+  // Handle database edit
   const handleEditDatabase = async (updatedDatabase: any) => {
     await updateDatabase(updatedDatabase);
-    setDatabase(updatedDatabase)
+    setDatabase(updatedDatabase);
   };
 
+  // Show loading indicator while data is being fetched
   if (loading) {
     return (
       <Container>
@@ -59,6 +66,7 @@ const DatabaseDetails: React.FC = () => {
     );
   }
 
+  // Show error message if there is an error
   if (error) {
     return (
       <Container>
@@ -67,6 +75,7 @@ const DatabaseDetails: React.FC = () => {
     );
   }
 
+  // Show message if no database details are found
   if (!database) {
     return (
       <Container>
@@ -77,24 +86,22 @@ const DatabaseDetails: React.FC = () => {
 
   return (
     <Container>
-      <h1>
-        Database Details
-      </h1>
+      <h1>Database Details</h1>
       <ButtonGroup variant="contained" aria-label="Basic button group">
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpenDialog}
-      >
-        <EditIcon />
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickHome}
-      >
-        <HomeIcon />
-      </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClickOpenDialog}
+        >
+          <EditIcon />
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClickHome}
+        >
+          <HomeIcon />
+        </Button>
       </ButtonGroup>
       <Typography variant="h6" className="detail">
         Database Name: {database.name}
@@ -108,10 +115,12 @@ const DatabaseDetails: React.FC = () => {
       <Typography variant="h6" className="detail">
         Database Type: {database.type}
       </Typography>
-      <DBDialog open={open}
+      <DBDialog
+        open={open}
         onClose={closeDialog}
         onEdit={handleEditDatabase}
-        existingDatabase={database} />
+        existingDatabase={database}
+      />
     </Container>
   );
 };
