@@ -7,7 +7,17 @@ export const getDatabases = async () => {
   return response.data;
 };
 
+export const getDatabase = async (id: string) => {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+};
+
 export const addDatabase = async (database: any) => {
   const response = await axios.post(API_URL, database);
+  return response.data;
+};
+
+export const updateDatabase = async (database: any) => {
+  const response = await axios.put(`${API_URL}/${database.id}`, database);
   return response.data;
 };
