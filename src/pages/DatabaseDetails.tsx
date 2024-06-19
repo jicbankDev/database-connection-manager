@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, updateDatabase } from '../services/databaseService';
 import { IDatabase } from '../types/Database.type';
-import { Container, Typography, CircularProgress, Button, ButtonGroup } from '@mui/material';
+import { Container, Typography, CircularProgress, Button, ButtonGroup, Link } from '@mui/material';
 import DBDialog from '../components/DBDialog/DBDialog';
 import { useDialog } from '../contexts/DialogContext';
 
@@ -107,7 +107,7 @@ const DatabaseDetails: React.FC = () => {
         Database Name: {database.name}
       </Typography>
       <Typography variant="h6" className="detail">
-        URL: <Link to={database.url}>{database.url}</Link>
+        URL: <a href={database.url}>{database.url}</a>
       </Typography>
       <Typography variant="h6" className="detail">
         Username: {database.username}

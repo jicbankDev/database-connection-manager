@@ -44,20 +44,22 @@ const DBTable = (props: Props) => {
     openSnackbar('Database deleted successfully.'); 
   };
 
+  const paginatedDatabases = databases.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <>
     <TableContainer>
       <Table className="table-custom">
         <TableHead className="table-header">
           <TableRow>
-            <TableCell>Database Name</TableCell>
-            <TableCell>Username</TableCell>
-            <TableCell>Database Type</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell className="table-cell">Database Name</TableCell>
+            <TableCell className="table-cell">Username</TableCell>
+            <TableCell className="table-cell">Database Type</TableCell>
+            <TableCell className="table-cell">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {databases.map((db) => (
+          {paginatedDatabases.map((db) => (
             <TableRow
               key={db.id}
               className="clickable-row">

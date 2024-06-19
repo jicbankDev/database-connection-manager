@@ -4,19 +4,24 @@
 }
 .table-custom th {
     text-align: center;
-    font-weight: bold; 
-  }
+    font-weight: bold;
+}
 
 .table-custom td {
-  text-align: center;
+    text-align: center;
+    max-width: 200px;
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
+
 .table-header {
     background-color: #f0f0f0;
 }
+
 .clickable-tablecell {
     cursor: pointer
-    
 }
-.clickable-row:hover{
+
+.clickable-row:hover {
     background-color: #f0f0f0
 }
