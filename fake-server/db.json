@@ -23,14 +23,6 @@
       "username": "user3",
       "password": "password3",
       "type": "MySQL"
-    },
-    {
-      "id": "3202",
-      "name": "databse 4",
-      "url": "www.database4.com",
-      "username": "dave",
-      "password": "123",
-      "type": "Trino"
     }
   ]
 }

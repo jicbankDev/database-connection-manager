@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
-import { getDatabases, addDatabase, updateDatabase } from '../services/databaseService';
+import { Container, Button } from '@mui/material';
+import { getDatabases, addDatabase } from '../services/databaseService';
 import DBTable from '../components/DBTable/DBTable';
 import DBDialog from '../components/DBDialog/DBDialog';
 import { IDatabase } from '../types/Database.type';
 import { useDialog } from '../contexts/DialogContext';
+import AddIcon from '@mui/icons-material/Add';
 
 const DatabaseList: React.FC = () => {
   const [databases, setDatabases] = useState<IDatabase[]>([]);
@@ -31,7 +32,7 @@ const DatabaseList: React.FC = () => {
       <h1>Database Connections</h1>
       
       <Button variant="contained" color="primary" onClick={() => openDialog()}>
-        +
+        <AddIcon/>
       </Button>
 
       <DBTable databases={databases}/>

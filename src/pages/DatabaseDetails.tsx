@@ -2,19 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, updateDatabase } from '../services/databaseService';
 import { IDatabase } from '../types/Database.type';
-import { Container, Typography, CircularProgress, Button } from '@mui/material';
+import { Container, Typography, CircularProgress, Button, ButtonGroup } from '@mui/material';
 import DBDialog from '../components/DBDialog/DBDialog';
 import { useDialog } from '../contexts/DialogContext';
+
+import HomeIcon from '@mui/icons-material/Home';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 const DatabaseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [database, setDatabase] = useState<IDatabase | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const { open, openDialog, closeDialog } = useDialog();
 
-  const navigate = useNavigate ();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -76,16 +80,34 @@ const DatabaseDetails: React.FC = () => {
       <h1>
         Database Details
       </h1>
-      <Button variant="contained" color="primary" onClick={handleClickOpenDialog}>
-       Edit
+      <ButtonGroup variant="contained" aria-label="Basic button group">
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpenDialog}
+      >
+        <EditIcon />
       </Button>
-      <Button variant="contained" color="primary" onClick={handleClickHome}>
-       Home
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleClickHome}
+      >
+        <HomeIcon />
       </Button>
-      <Typography variant="h6">Database Name: {database.name}</Typography>
-      <Typography variant="h6">URL: {database.url}</Typography>
-      <Typography variant="h6">Username: {database.username}</Typography>
-      <Typography variant="h6">Database Type: {database.type}</Typography>
+      </ButtonGroup>
+      <Typography variant="h6" className="detail">
+        Database Name: {database.name}
+      </Typography>
+      <Typography variant="h6" className="detail">
+        URL: {database.url}
+      </Typography>
+      <Typography variant="h6" className="detail">
+        Username: {database.username}
+      </Typography>
+      <Typography variant="h6" className="detail">
+        Database Type: {database.type}
+      </Typography>
       <DBDialog open={open}
         onClose={closeDialog}
         onEdit={handleEditDatabase}

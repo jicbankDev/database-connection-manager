@@ -1,4 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Select, FormControl, InputLabel, InputAdornment, IconButton } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IDatabase } from '../../types/Database.type';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +15,8 @@ type Props = {
 const DBDialog = (props: Props) => {
 
   let { open, onClose, onAdd, onEdit, existingDatabase } = props;
+  
+  const [showPassword, setShowPassword] = useState(false);
   const [database, setDatabase] = useState({
     id: '',
     name: '',
@@ -33,7 +37,11 @@ const DBDialog = (props: Props) => {
       onEdit(database);
       setDatabase(database);
     } else if (onAdd) {
-      onAdd(database);
+      const newDatabase = {
+        ...database,
+        id: generateId()
+      };
+      onAdd(newDatabase);
       setDatabase({
         id: '',
         name: '',
@@ -53,7 +61,13 @@ const DBDialog = (props: Props) => {
     });
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
+  const generateId = () => {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
 
   return <>
     <Dialog open={open} >
@@ -91,10 +105,23 @@ const DBDialog = (props: Props) => {
           margin="dense"
           name="password"
           label="Password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           fullWidth
           value={database.password}
           onChange={handleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <FormControl fullWidth margin="dense">
           <InputLabel>Type</InputLabel>
