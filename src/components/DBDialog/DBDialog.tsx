@@ -3,7 +3,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { IDatabase } from '../../types/Database.type';
 import { useEffect, useState } from 'react';
-import { useSnackbar } from '../../contexts/SnackbarContext';
 
 type Props = {
   isDialogOpen: boolean;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, updateDatabase } from '../services/databaseService';
 import { IDatabase } from '../types/Database.type';
-import { Container, Typography, CircularProgress, Button, ButtonGroup, Link } from '@mui/material';
+import { Container, Typography, CircularProgress, Button, ButtonGroup } from '@mui/material';
 import DBDialog from '../components/DBDialog/DBDialog';
 import { useDialog } from '../contexts/DialogContext';
 
