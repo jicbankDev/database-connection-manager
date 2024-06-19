@@ -1,12 +1,15 @@
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { IDatabase } from '../../types/Database.type';
+import { useNavigate  } from "react-router-dom";
 
 
 type Props = {
     databases: IDatabase[]
 }
-
 const DBTable = (props: Props) => {
+    
+    const navigate = useNavigate ();
+
 
     const { databases } = props;
     return <>
@@ -20,7 +23,7 @@ const DBTable = (props: Props) => {
         </TableHead>
         <TableBody>
           {databases.map((db) => (
-              <TableRow key={db.id} >
+              <TableRow key={db.id} onClick={() => navigate(`/database/${db.id}`)}>
               <TableCell>{db.name}</TableCell>
               <TableCell>{db.username}</TableCell>
               <TableCell>{db.type}</TableCell>
