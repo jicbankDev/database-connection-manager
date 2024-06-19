@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, updateDatabase } from '../services/databaseService';
 import { IDatabase } from '../types/Database.type';
 import { Container, Typography, CircularProgress, Button, ButtonGroup } from '@mui/material';
@@ -11,11 +11,11 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const DatabaseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Get database ID from URL parameters
-  const [database, setDatabase] = useState<IDatabase | null>(null); // State to store database details
+  const [database, setDatabase] = useState<IDatabase | undefined>(undefined); // State to store database details
   const [loading, setLoading] = useState<boolean>(true); // State to manage loading status
   const [error, setError] = useState<string | null>(null); // State to manage error messages
 
-  const { open, openDialog, closeDialog } = useDialog(); // Use custom dialog hook
+  const { isDialogOpen, openDialog, closeDialog } = useDialog(); // Use custom dialog hook
 
   const navigate = useNavigate(); // Hook to navigate programmatically
 
@@ -107,16 +107,19 @@ const DatabaseDetails: React.FC = () => {
         Database Name: {database.name}
       </Typography>
       <Typography variant="h6" className="detail">
-        URL: {database.url}
+        URL: <Link to={database.url}>{database.url}</Link>
       </Typography>
       <Typography variant="h6" className="detail">
         Username: {database.username}
       </Typography>
       <Typography variant="h6" className="detail">
+        Password: {database.password}
+      </Typography>
+      <Typography variant="h6" className="detail">
         Database Type: {database.type}
       </Typography>
       <DBDialog
-        open={open}
+        isDialogOpen={isDialogOpen}
         onClose={closeDialog}
         onEdit={handleEditDatabase}
         existingDatabase={database}

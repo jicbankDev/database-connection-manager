@@ -1,12 +1,19 @@
 .table-custom {
     margin-top: 5px;
     min-width: 650px;
-    border: 1px solid black;
+}
+.table-custom th {
+    text-align: center;
+    font-weight: bold; 
+  }
+
+.table-custom td {
+  text-align: center;
 }
 .table-header {
     background-color: #f0f0f0;
 }
-.clickable-row {
+.clickable-tablecell {
     cursor: pointer
     
 }

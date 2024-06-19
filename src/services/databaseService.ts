@@ -12,6 +12,11 @@ export const getDatabase = async (id: string) => {
   return response.data;
 };
 
+export const deleteDatabase = async (id: string) => {
+  const response = await axios.delete(`${API_URL}/${id}`);
+  return response.data;
+};
+
 export const addDatabase = async (database: any) => {
   const response = await axios.post(API_URL, database);
   return response.data;

@@ -1,10 +1,11 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react';
+import { IDatabase } from '../types/Database.type';
 
 // Define the interface for the context properties
 interface DialogContextProps {
-  open: boolean;
-  selectedDatabase: any | null;
-  openDialog: (database?: any) => void;
+  isDialogOpen: boolean;
+  selectedDatabase: IDatabase | undefined;
+  openDialog: (database?: IDatabase) => void;
   closeDialog: () => void;
 }
 
@@ -13,24 +14,24 @@ const DialogContext = createContext<DialogContextProps | undefined>(undefined);
 
 // Provider component to manage dialog state and provide it to children components
 export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [open, setOpen] = useState(false); // State to manage dialog open status
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to manage dialog open status
   const [selectedDatabase, setSelectedDatabase] = useState<any | null>(null); // State to manage the selected database
 
   // Function to open the dialog and set the selected database
-  const openDialog = (database?: any) => {
+  const openDialog = (database?: IDatabase) => {
     setSelectedDatabase(database || null);
-    setOpen(true);
+    setIsDialogOpen(true);
   };
 
   // Function to close the dialog and reset the selected database
   const closeDialog = () => {
-    setOpen(false);
+    setIsDialogOpen(false);
     setSelectedDatabase(null);
   };
 
   return (
     // Provide the dialog state and functions to the context
-    <DialogContext.Provider value={{ open, selectedDatabase, openDialog, closeDialog }}>
+    <DialogContext.Provider value={{ isDialogOpen, selectedDatabase, openDialog, closeDialog }}>
       {children}
     </DialogContext.Provider>
   );
